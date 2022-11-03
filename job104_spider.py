@@ -4,6 +4,8 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
+# 詳細實作參考下面網址，這邊基本上是直接複製過來的：） 只做少部分資料需求的更改，沒有改邏輯
+# https://blog.jiatool.com/posts/job104_spider/
 
 class Job104Spider():
     def search(self, keyword, max_mun=10, filter_params=None, sort_type='符合度', is_sort_asc=False):
@@ -179,8 +181,15 @@ class Job104Spider():
 if __name__ == "__main__":
     job104_spider = Job104Spider()
 
+    class_dict = {
+        2004000000: '行銷企劃專案管理類',
+        2007000000: '資訊軟體系統類'
+    }
+    
+    code = 2007000000
+    
     filter_params = {
-        'jobcat': 2007000000, # 2004000000 行銷企劃專案管理類, 2007000000 資訊軟體系統類
+        'jobcat': code, # 2004000000 行銷企劃專案管理類, 2007000000 資訊軟體系統類
         # 'area': '6001001000,6001016000',  # (地區) 台北市,高雄市
         # 's9': '1,2,4,8',  # (上班時段) 日班,夜班,大夜班,假日班
         # 's5': '0',  # 0:不需輪班 256:輪班
@@ -209,5 +218,5 @@ if __name__ == "__main__":
         job_info = job104_spider.get_job(j)
         res = job104_spider.job_detail_transform(job_info)
         out = pd.concat([out, res])
-    out.to_csv('output.csv', encoding="utf_8_sig")
+    out.to_csv(f'104_{class_dict[code]}_data.csv', encoding="utf_8_sig", index=False)
     
