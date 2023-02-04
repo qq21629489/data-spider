@@ -15,6 +15,7 @@ class Job104Spider():
 
         url = 'https://www.104.com.tw/jobs/search/list'
         query = f'ro=0&kwop=7&keyword={keyword}&expansionType=area,spec,com,job,wf,wktm&mode=s&jobsource=2018indexpoc'
+        # https://www.104.com.tw/jobs/search/?keyword=%E9%9B%BB%E5%AD%90%E5%95%86%E5%8B%99&area=6001001000&jobsource=2018indexpoc&ro=0
         if filter_params:
             # 加上篩選參數，要先轉換為 URL 參數字串格式
             query += ''.join([f'&{key}={value}' for key,
